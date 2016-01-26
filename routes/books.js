@@ -7,6 +7,7 @@ var request = require('good-guy-http')({
 		mustRevalidate: false             
 	}
 });
+var json = require('jsonpath');
 
 var router = express.Router();
 var apiUrl = 'https://www.googleapis.com/books/v1/volumes';
@@ -14,9 +15,9 @@ var apiUrl = 'https://www.googleapis.com/books/v1/volumes';
 router.get('/:isbn', function(req, res, next) {
 	request({url: apiUrl, qs: {'q': 'isbn:' + req.params.isbn}, json: true})
 		.then(function(reply) {
-			if(reply.body.totalItems > 0) {
-				var title = reply.body.items[0].volumeInfo.title;
-				var cover = reply.body.items[0].volumeInfo.imageLinks.thumbnail;
+			if(json.query(reply, '$..totalItems') > 0) {
+				var title = json.query(reply, '$..title');
+				var cover = json.query(reply, '$..thumbnail');
 				res.render('books', {cover: cover, title: title});
 			} else {
 				res.status(404).send('Book not found');
