@@ -18,7 +18,7 @@ router.get('/:isbn', function(req, res, next) {
 			if(json.query(reply, '$..totalItems') > 0) {
 				var title = json.query(reply, '$..title');
 				var cover = json.query(reply, '$..thumbnail');
-				res.render('books', {cover: cover, title: title});
+				res.render('books', {cover: cover, title: title, partials: {layout: 'layout_file'}});
 			} else {
 				res.status(404).send('Book not found');
 			}
