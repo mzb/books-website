@@ -23,7 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(esi.middleware());
+app.use(esi.middleware({
+	onError: function(src, err) {
+		return err.statusCode === 404 ? 'Not found' : '';
+	}
+}));
 
 app.use('/', routes);
 app.use('/book', books);
