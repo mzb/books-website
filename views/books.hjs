@@ -1,6 +1,11 @@
 {{<layout}}
 {{$content}}
-<img src="{{cover}}">
-<div>{{title}}</div>
+	<img src="{{cover}}">
+	<div>{{title}}</div>
+	<strong>No of copies: 
+		<esi:include src="http://localhost:5000/stock/{{ isbn }}">
+			<a href="http://localhost:5000/stock/{{ isbn }}" class="include">No of copies</a>
+		</esi:include>
+	</strong>
 {{/content}}
 {{/layout}}

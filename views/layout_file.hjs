@@ -1,10 +1,28 @@
 <html>
 <head></head>
 <body>
-	<header><esi:include src="https://kwasniew.github.io/menu.html" /></header>
+	<header>
+		<esi:include src="https://kwasniew.github.io/menu.html">
+			<a href="https://kwasniew.github.io/menu.html" class="include">menu</a>
+		</esi:include>
+	</header>
 {{$content}}
-
 {{/content}}
-	<footer><esi:include src="https://kwasniew.github.io/footer.html" /></footer>
+	<footer>
+		<esi:include src="https://kwasniew.github.io/footer.html">
+			<a href="https://kwasniew.github.io/footer.html" class="include">footer</a>
+		</esi:include>
+	</footer>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			$('.include').each(function() {
+				var elem = $(this);
+				$.get(elem.attr('href')).done(function(resp) {
+					elem.parent().html(resp);
+				});
+			});
+		});
+	</script>
 </body>
 </html>
