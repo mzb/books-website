@@ -1,5 +1,7 @@
 <html>
-<head></head>
+<head>
+	<meta data-request-id="{{ requestId }}">
+</head>
 <body>
 	<header>
 		<esi:include src="https://kwasniew.github.io/menu.html">

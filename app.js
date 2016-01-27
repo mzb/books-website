@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var esi = require('nodesi');
 
 var routes = require('./routes/index');
 var books = require('./routes/books');
@@ -22,12 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use(esi.middleware({
-// 	onError: function(src, err) {
-// 		return err.statusCode === 404 ? 'Not found' : '';
-// 	}
-// }));
 
 app.use('/', routes);
 app.use('/book', books);
