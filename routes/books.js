@@ -11,11 +11,12 @@ var json = require('jsonpath');
 var ESI = require('nodesi');
 
 var router = express.Router();
-var apiUrl = 'https://www.googleapis.com/books/v1/volumes';
+var bookApiUrl = 'https://www.googleapis.com/books/v1/volumes';
+var stockApiUrl = process.env.STOCK_API_URL || 'http://mb-book-inventory-test.herokuapp.com';
 var esi = new ESI();
 
 router.get('/:isbn', function(req, res, next) {
-	request({url: apiUrl, qs: {'q': 'isbn:' + req.params.isbn}, json: true})
+	request({url: bookApiUrl, qs: {'q': 'isbn:' + req.params.isbn}, json: true})
 		.then(function(reply) {
 			return new Promise(function(resolve, reject) {
 				if(json.query(reply, '$..totalItems') > 0) {
@@ -26,6 +27,7 @@ router.get('/:isbn', function(req, res, next) {
 						title: title, 
 						isbn: req.params.isbn, 
 						requestId: req.headers['x-request-id'],
+						stockApiUrl: stockApiUrl,
 						partials: {layout: 'layout_file'}
 					}, function(err, html) {
 						if(err) reject(err);
