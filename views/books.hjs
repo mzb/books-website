@@ -3,8 +3,8 @@
 	<img src="{{cover}}">
 	<div>{{title}}</div>
 	<strong>No of copies: 
-		<esi:include src="http://localhost:5000/stock/{{ isbn }}">
-			<a href="http://localhost:5000/stock/{{ isbn }}" class="include">No of copies</a>
+		<esi:include src="http://mb-book-inventory.herokuapp.com/stock/{{ isbn }}">
+			<a href="http://mb-book-inventory.herokuapp.com/stock/{{ isbn }}" class="include">No of copies</a>
 		</esi:include>
 	</strong>
 {{/content}}
